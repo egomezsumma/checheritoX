@@ -3,6 +3,7 @@ package com.example.checheritox.ui.home.ArticulosListAdapter
 import com.example.checheritox.ui.home.HomeViewModel
 
 import android.content.Context
+import android.text.Html
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -37,8 +38,24 @@ class ArticulosListAdapter(
             // Actualizo el template
             this.bindings.articulo = articulo
             this.bindings.numero.setText("Articulo ${articulo.numero}")
-            this.bindings.titulo.setText("TITULO I")
-            this.bindings.contenido.setText(articulo.texto)
+            this.bindings.titulo.setText("TITULO ${articulo.titulo.numero}")
+
+
+            val lct = articulo.texto.split("constituye");
+
+            if(lct.size>1)
+            {
+                var str = lct[0]
+                for (index in 1 until lct.size) {
+                    str = str + "<b><font color='#EE0000'>constituye</font></b>" + lct[index]
+                }
+                this.bindings.contenido.setText(Html.fromHtml(str))
+            }
+            else {
+                this.bindings.contenido.setText(articulo.texto)
+            }
+
+
 
             // Esto es por ahora en el historial que muestro canciones si no encuentro listenings
             /*if (listening is FakeListening) {

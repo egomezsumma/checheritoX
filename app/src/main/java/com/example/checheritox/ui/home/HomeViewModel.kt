@@ -15,7 +15,7 @@ class HomeViewModel() : ViewModel() {
         get() = _articulos
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
+        value = "Artículos de la Constitución"
     }
     val text: LiveData<String> = _text
 

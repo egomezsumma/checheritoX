@@ -14,7 +14,7 @@ class Titulo(val texto : String) {
             res.numero = text.split("\\n".toRegex())[0].trim()
             res.subtitulo = articulosTxt[0].trim()
             for (index in 1 until articulosTxt.size) {
-                res.articulos.add(Articulo.fromText(articulosTxt[index]))
+                res.articulos.add(Articulo.fromText(res, articulosTxt[index]))
             }
             return res
         }

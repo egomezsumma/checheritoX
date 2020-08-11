@@ -20,14 +20,13 @@
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="El Negro busca"
             android:textSize="24sp"
             android:textColor="@color/colorPrimary"
             android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Buscador"></TextView>
+            tools:text="Artículos de la Constitución"></TextView>
 
 
         <SearchView
