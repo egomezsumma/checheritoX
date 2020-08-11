@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.home.HomeFragment"
-        >
+        android:background="@color/black_background">
 
 
         <TextView
@@ -42,7 +42,7 @@
             android:textColorHint="@android:color/white"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/history_rc"
+            android:id="@+id/articulos_rv"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="16dp"

@@ -20,4 +20,12 @@ class ConstitucionPanama {
             return res
         }
     }
+
+    fun getArticulos(): ArrayList<Articulo> {
+        val articulos = arrayListOf<Articulo>()
+        for(tit in titulos){
+            articulos.addAll(tit.articulos)
+        }
+        return articulos
+    }
 }

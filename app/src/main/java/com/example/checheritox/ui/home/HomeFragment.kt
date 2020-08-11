@@ -11,13 +11,16 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.RecyclerView
 import com.example.checheritox.R
 import com.example.checheritox.databinding.FragmentHomeBinding
 import com.example.checheritox.models.constitucion.ConstitucionPanama
 import com.example.checheritox.models.titulo.Titulo
+import com.example.checheritox.ui.home.ArticulosListAdapter.ArticulosListAdapter
 
 class HomeFragment : Fragment() {
 
+    private lateinit var reciclerView: RecyclerView
     private var constitucion: ConstitucionPanama? = null
     private lateinit var homeViewModel: HomeViewModel
 
@@ -45,6 +48,20 @@ class HomeFragment : Fragment() {
         var search : SearchView = binding.search//root.findViewById(R.id.search)
         this.initSearchView(search)
 
+        /// CREO EL ADAPTER Y LE PASO UN LAMBDA CON LO QUE HACER OnClickItem
+        val adapter = ArticulosListAdapter(this.context!!, homeViewModel)
+
+        this.reciclerView = binding.articulosRv
+
+        // CREO UN OBSERVADOR QUE VEA SI CAMBIA LA LISTA DE PL QUE AVISE A
+        homeViewModel.articulos.observe(this, Observer { list ->
+            list?.let {
+                reciclerView.setAdapter(adapter)
+                adapter.submitList(list)
+                adapter.notifyDataSetChanged()
+            }
+        })
+
         initFile()
 
         return binding.root
@@ -58,6 +75,7 @@ class HomeFragment : Fragment() {
 
         this.constitucion = ConstitucionPanama.fromText(constitucionTxt)
 
+        homeViewModel.setConstitucion(this.constitucion!!)
         Log.d("HF", "${this.constitucion!!.titulos.size}")
     }
 
