@@ -86,13 +86,18 @@ class HomeFragment : Fragment() {
                 Log.d("HistoryActivity", "onQueryTextSubmit: $query")
                 // false if the SearchView should perform the default action of showing any suggestions if available,
                 // true if the action was handled by the listener.
+                if(query!=null){
+                    homeViewModel.filterArticulos(query)
+                }
 
                 return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 Log.d("HistoryActivity", "onQueryTextChange: $newText")
-
+                if(newText!=null){
+                    homeViewModel.filterArticulos(newText)
+                }
                 // false if the SearchView should perform the default action of showing any suggestions if available,
                 // true if the action was handled by the listener.
                 return false

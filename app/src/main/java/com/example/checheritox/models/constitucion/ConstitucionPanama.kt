@@ -1,7 +1,9 @@
 package com.example.checheritox.models.constitucion
 
 import com.example.checheritox.models.articulo.Articulo
+import com.example.checheritox.models.articulo.ArticuloResult
 import com.example.checheritox.models.titulo.Titulo
+import com.example.checheritox.utils.slugify
 
 class ConstitucionPanama {
     val titulos : ArrayList<Titulo> = arrayListOf()
@@ -28,4 +30,18 @@ class ConstitucionPanama {
         }
         return articulos
     }
+
+    fun getArticulosFiltered(text: String): ArrayList<ArticuloResult> {
+        val articulos = arrayListOf<ArticuloResult>()
+        val textSlug = slugify(text)
+        for(articulo in getArticulos()){
+            val articuloSlug = slugify(articulo.texto)
+            if(articuloSlug.contains(textSlug)){
+                articulos.add(ArticuloResult(articulo, text))
+            }
+        }
+        return articulos
+    }
+
+
 }

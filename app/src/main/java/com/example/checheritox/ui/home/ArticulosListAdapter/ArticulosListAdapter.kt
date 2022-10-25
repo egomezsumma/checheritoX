@@ -14,18 +14,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.checheritox.databinding.ArticuloItemBinding
 import com.example.checheritox.databinding.FragmentHomeBinding
 import com.example.checheritox.models.articulo.Articulo
+import com.example.checheritox.models.articulo.ArticuloResult
 
 class ArticulosListAdapter(
     val mContext: Context,
     val vm: HomeViewModel
-) : ListAdapter<Articulo, ArticulosListAdapter.MyViewHolder>(ArticulosListDiffCallback()) {
+) : ListAdapter<ArticuloResult, ArticulosListAdapter.MyViewHolder>(ArticulosListDiffCallback()) {
 
     class MyViewHolder(val bindings: ArticuloItemBinding, private val context: Context) : RecyclerView.ViewHolder(bindings.root) {
         init {
             //this.itemView.setOnClickListener(this)
         }
 
-        fun bind(listening: Articulo, position: Int) {
+        fun bind(listening: ArticuloResult, position: Int) {
             bindItem(listening, position)
             /*if(listening is ListeningDBEntityLastItemMark){
                 bindFooter(listening, position)
@@ -34,14 +35,16 @@ class ArticulosListAdapter(
                 bindItem(listening, position)
             }*/
         }
-        fun bindItem(articulo: Articulo, position: Int) {
+        fun bindItem(articuloResult: ArticuloResult, position: Int) {
+            val articulo = articuloResult.articulo
             // Actualizo el template
             this.bindings.articulo = articulo
             this.bindings.numero.setText("Articulo ${articulo.numero}")
             this.bindings.titulo.setText("TITULO ${articulo.titulo.numero}")
 
 
-            val lct = articulo.texto.split("constituye");
+            this.bindings.contenido.setText(Html.fromHtml(articuloResult.getFormatedHtmText()))
+            /*val lct = articulo.texto.split("constituye");
 
             if(lct.size>1)
             {
@@ -53,7 +56,7 @@ class ArticulosListAdapter(
             }
             else {
                 this.bindings.contenido.setText(articulo.texto)
-            }
+            }*/
 
 
 
@@ -109,12 +112,12 @@ class ArticulosListAdapter(
 
 }
 
-class ArticulosListDiffCallback : DiffUtil.ItemCallback<Articulo>() {
-    override fun areItemsTheSame(oldItem: Articulo, newItem: Articulo): Boolean {
-        return oldItem.numero == newItem.numero
+class ArticulosListDiffCallback : DiffUtil.ItemCallback<ArticuloResult>() {
+    override fun areItemsTheSame(oldItem: ArticuloResult, newItem: ArticuloResult): Boolean {
+        return oldItem.articulo.numero == newItem.articulo.numero && oldItem.query.equals(newItem.query)
     }
-    override fun areContentsTheSame(oldItem: Articulo, newItem: Articulo): Boolean {
-        return oldItem.numero == newItem.numero
+    override fun areContentsTheSame(oldItem: ArticuloResult, newItem: ArticuloResult): Boolean {
+        return oldItem.articulo.numero == newItem.articulo.numero && oldItem.query.equals(newItem.query)
     }
 }
 
