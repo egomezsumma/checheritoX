@@ -4,6 +4,7 @@ package com.example.checheritox.utils
 import android.annotation.SuppressLint
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import java.text.Format
 
 import java.text.Normalizer
 import java.text.SimpleDateFormat
@@ -98,6 +99,11 @@ fun convertLongToDateString(systemTime: Long, showYear: Boolean =false): String 
             .format(systemTime).toString()
     }
     return SimpleDateFormat("EEEE dd MMM' 'HH:mm")
+        .format(systemTime).toString()
+}
+
+fun printLongWithFormat(systemTime: Long, format: String = "yyyyMMdd"): String {
+    return SimpleDateFormat(format)
         .format(systemTime).toString()
 }
 
