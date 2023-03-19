@@ -56,20 +56,19 @@ class GacetasFragment : Fragment() {
         return root
     }
 
+    /* NO FUNCA PORQ HAY DIAS AL AZAR QUE NO HAY GACETA LUEGO LA BIYECION NO GACETA FECHA NO SE
+       PUEDE CALCULAR
     fun getUrl(gacetaNo:String, yyyyMMddDateStr:String, appendix:String = "" ) : String
     {
         val gacetaAnApendixMayus = gacetaNo + if(appendix.isNotEmpty()) "_${appendix.toUpperCase()}" else ""
         var urlTemplate = "https://www.gacetaoficial.gob.pa/pdfTemp/$gacetaAnApendixMayus/GacetaNo_${gacetaNo + appendix.toLowerCase()}_${yyyyMMddDateStr}.pdf"
         return urlTemplate
     }
-    fun onDateSelected(date: Calendar) {
+
+    fun calculateUrl(date: Calendar){
         val dayRef = Calendar.getInstance()
         dayRef.set(2023, 2, 8)
         val refGacetaNo = 29735
-
-        /*val monDayRef = Calendar.getInstance()
-        monDayRef.set(2023, 3, 8)
-        val monRefGacetaNo = ""*/
 
         var sign = 1
         var diffMs = date.timeInMillis - dayRef.timeInMillis;
@@ -85,6 +84,13 @@ class GacetasFragment : Fragment() {
         val url2 = getUrl(gacetaNo.toString(), printLongWithFormat(date.timeInMillis), "a")
         Log.d("ALALa", url1)
         Log.d("ALALa", url2)
+    }*/
+    fun onDateSelected(date: Calendar) {
+        //return calculateUrl(date); --> no resulta pq hay dias al azar q no hay gacetas
+
 
     }
+
+
+
 }
