@@ -3,19 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-        <variable
-            name="articulo"
-            type="com.example.checheritox.models.articulo.Articulo" />
-        <variable
-            name="mainViewModel"
-            type="com.example.checheritox.ui.home.HomeViewModel" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/black_background">
 
         <TextView
             android:id="@+id/numero"
@@ -26,51 +18,10 @@
             android:textColor="@color/colorAccent"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="La lambda" />
+            tools:text="298398" />
 
-        <TextView
-            android:id="@+id/titulo"
-            tools:text="Escuchado 80%"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layout_constraintStart_toStartOf="@+id/numero"
-            app:layout_constraintTop_toBottomOf="@+id/numero"
-            android:textColor="@android:color/white"/>
-
-        <TextView
-            android:id="@+id/contenido"
-            tools:text="EL Sabado 18 Jul. 12:45"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layout_constraintStart_toStartOf="@+id/titulo"
-            app:layout_constraintTop_toBottomOf="@+id/titulo"
-            android:textColor="@android:color/white"/>
-
-        <!--Button
-            android:id="@+id/search_on_spotify"
-            android:text="Buscar en spotify"
-            android:visibility="gone"
-            android:background="@color/colorPrimary"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textColor="@android:color/white"
-            android:onClick="@{()-> mainViewModel.onSearchOnSpotify()}"
-            android:layout_marginBottom="8dp"
-
-
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Buscar en spotify" /-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
