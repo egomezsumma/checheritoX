@@ -16,9 +16,9 @@ import java.util.Calendar
 
 class GacetasViewModel(actOrFrag:GacetasFragment) : ChecheritoViewModel<GacetasFragment>(actOrFrag) {
 
-    private val _text = MutableLiveData<String>()
+    /*private val _text = MutableLiveData<String>()
     val text : LiveData<String>
-        get() = _text
+        get() = _text*/
 
     private val _gacetasLinks = MutableLiveData<List<GacetasFragment.GacetaLink>>()
     val gacetasLinks : LiveData<List<GacetasFragment.GacetaLink>>
@@ -26,12 +26,22 @@ class GacetasViewModel(actOrFrag:GacetasFragment) : ChecheritoViewModel<GacetasF
 
 
     val gacetasUrlsByNo : HashMap<String, String> = hashMapOf()
-    fun getGacetasFromDate(date:Calendar) {
-        uiScope.launch {
-            val texto = withContext(Dispatchers.IO) {
-                tryDownloadSuspend(date)
-            }
+    /*fun getGacetasFromDate(date:Calendar) {
+        var dayOfMouth = ("0" + date.get(Calendar.DAY_OF_MONTH).toString());
+        if (date.get(Calendar.DAY_OF_MONTH) > 9) {
+            dayOfMouth = date.get(Calendar.DAY_OF_MONTH).toString()
+        }
+        var month = printLongWithFormat(date.timeInMillis, format = "MMM")
+        var year = date.get(Calendar.YEAR).toString();
+        val text = "${dayOfMouth}+de+${month}+de+${year}"
+        getGacetasFromText(text)
+    }*/
 
+    fun getGacetasFromText(text:String) {
+        uiScope.launch {
+            val result = withContext(Dispatchers.IO) {
+                tryDownloadSuspend(text)
+            }
             val newList = arrayListOf<GacetasFragment.GacetaLink>()
             gacetasUrlsByNo.forEach { nro, url ->
                 newList.add(GacetasFragment.GacetaLink(nro, url))
@@ -40,19 +50,13 @@ class GacetasViewModel(actOrFrag:GacetasFragment) : ChecheritoViewModel<GacetasF
         }
     }
 
-    private fun tryDownloadSuspend(date:Calendar): String {
+
+    private fun tryDownloadSuspend(textToAppend:String): String {
         // Paara poder pegarle a un dominito tiene q estar en network_security_config.xml
         try {
+            gacetasUrlsByNo.clear()
 
-            var dayOfMouth = ("0" + date.get(Calendar.DAY_OF_MONTH).toString());
-            if(date.get(Calendar.DAY_OF_MONTH) > 9){
-                dayOfMouth = date.get(Calendar.DAY_OF_MONTH).toString()
-            }
-            var month = printLongWithFormat(date.timeInMillis, format = "MMM")
-            var year = date.get(Calendar.YEAR).toString();
-
-
-            val url = "https://www.google.com/search?q=panama+gaceta+${dayOfMouth}+de+${month}+de+${year}"
+            val url = "https://www.google.com/search?q=panama+gaceta+$textToAppend"
             // Cargo la busqueda de google del sku con la palabra coto
             val doc: Document = Jsoup.connect(url).get()
 

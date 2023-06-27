@@ -3,11 +3,13 @@ package com.example.checheritox.ui.gacetas
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CalendarView
 import android.widget.CalendarView.OnDateChangeListener
+import android.widget.SearchView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -20,11 +22,15 @@ import com.example.checheritox.databinding.FragmentGacetasBinding
 import com.example.checheritox.databinding.GacetaLinkItemBinding
 import com.example.checheritox.ui.ChecheritoXListAdapter
 import com.example.checheritox.ui.RecyclerViewManager
+import com.example.checheritox.utils.printLongWithFormat
 import kotlinx.android.synthetic.main.fragment_gacetas.*
+import kotlinx.android.synthetic.main.nav_header_main.view.*
+import java.net.URLEncoder
 import java.util.Calendar
 
 class GacetasFragment : Fragment() {
 
+    private lateinit var binding: FragmentGacetasBinding
     private lateinit var gacetasViewModel: GacetasViewModel
 
     override fun onCreateView(
@@ -37,7 +43,7 @@ class GacetasFragment : Fragment() {
         gacetasViewModel = ViewModelProvider(this, viewModelFactory).get(GacetasViewModel::class.java)
 
         //val root = inflater.inflate(R.layout.fragment_gacetas, container, false)
-        val binding = DataBindingUtil.inflate<FragmentGacetasBinding>( inflater, R.layout.fragment_gacetas, container, false)
+        binding = DataBindingUtil.inflate<FragmentGacetasBinding>( inflater, R.layout.fragment_gacetas, container, false)
         val root = binding.root
 
 
@@ -60,12 +66,8 @@ class GacetasFragment : Fragment() {
                 })
         calendarView.maxDate = System.currentTimeMillis();
 
-        val textView: TextView = root.findViewById(R.id.text_slideshow)
-        gacetasViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
-
         initRecyclerView(binding.list, listManager, gacetasViewModel.gacetasLinks)
+        initSearchView(binding.search)
 
         return root
     }
@@ -108,8 +110,38 @@ class GacetasFragment : Fragment() {
 
 
     fun onDateSelected(date: Calendar) {
-        //return calculateUrl(date); --> no resulta pq hay dias al azar q no hay gacetas
-        gacetasViewModel.getGacetasFromDate(date);
+        var dayOfMouth = ("0" + date.get(Calendar.DAY_OF_MONTH).toString());
+        if (date.get(Calendar.DAY_OF_MONTH) > 9) {
+            dayOfMouth = date.get(Calendar.DAY_OF_MONTH).toString()
+        }
+        var month = printLongWithFormat(date.timeInMillis, format = "MMM")
+        var year = date.get(Calendar.YEAR).toString();
+        val text = "${dayOfMouth}+de+${month}+de+${year}"
+
+        binding!!.search.setQuery(text.replace("+", " "), false)
+        binding!!.search.clearFocus()
+        gacetasViewModel.getGacetasFromText(text);
+    }
+
+    fun initSearchView(search: SearchView) {
+        search.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            //TODO(buscar en spotify si no hay resultados https://developer.spotify.com/documentation/web-api/reference/search/search/)
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                // false if the SearchView should perform the default action of showing any suggestions if available,
+                // true if the action was handled by the listener.
+                if(query!=null){
+                    val texto = URLEncoder.encode("\"$query\"", "UTF-8")
+                    gacetasViewModel.getGacetasFromText(texto)
+                }
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                // false if the SearchView should perform the default action of showing any suggestions if available,
+                // true if the action was handled by the listener.
+                return false
+            }
+        })
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
