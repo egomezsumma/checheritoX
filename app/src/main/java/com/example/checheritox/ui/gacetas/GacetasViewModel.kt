@@ -16,26 +16,13 @@ import java.util.Calendar
 
 class GacetasViewModel(actOrFrag:GacetasFragment) : ChecheritoViewModel<GacetasFragment>(actOrFrag) {
 
-    /*private val _text = MutableLiveData<String>()
-    val text : LiveData<String>
-        get() = _text*/
-
     private val _gacetasLinks = MutableLiveData<List<GacetasFragment.GacetaLink>>()
     val gacetasLinks : LiveData<List<GacetasFragment.GacetaLink>>
         get() = _gacetasLinks
 
 
     val gacetasUrlsByNo : HashMap<String, String> = hashMapOf()
-    /*fun getGacetasFromDate(date:Calendar) {
-        var dayOfMouth = ("0" + date.get(Calendar.DAY_OF_MONTH).toString());
-        if (date.get(Calendar.DAY_OF_MONTH) > 9) {
-            dayOfMouth = date.get(Calendar.DAY_OF_MONTH).toString()
-        }
-        var month = printLongWithFormat(date.timeInMillis, format = "MMM")
-        var year = date.get(Calendar.YEAR).toString();
-        val text = "${dayOfMouth}+de+${month}+de+${year}"
-        getGacetasFromText(text)
-    }*/
+
 
     fun getGacetasFromText(text:String) {
         uiScope.launch {
@@ -90,6 +77,10 @@ class GacetasViewModel(actOrFrag:GacetasFragment) : ChecheritoViewModel<GacetasF
             return ""
         }
 
+    }
+
+    fun clearList() {
+        _gacetasLinks.value = arrayListOf()
     }
 
 }

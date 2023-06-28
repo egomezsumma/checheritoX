@@ -13,4 +13,6 @@
     <string name="constitucion">Constitucion Nacional</string>
     <string name="codigos">Códigos</string>
     <string name="gacetas">Gacetas</string>
+    <string name="select_date">Elegir fecha</string>
+    <string name="search_gaceta">Buscar gaceta</string>
 </resources>

@@ -22,6 +22,7 @@ import com.example.checheritox.databinding.FragmentGacetasBinding
 import com.example.checheritox.databinding.GacetaLinkItemBinding
 import com.example.checheritox.ui.ChecheritoXListAdapter
 import com.example.checheritox.ui.RecyclerViewManager
+import com.example.checheritox.utils.UIUtils
 import com.example.checheritox.utils.printLongWithFormat
 import kotlinx.android.synthetic.main.fragment_gacetas.*
 import kotlinx.android.synthetic.main.nav_header_main.view.*
@@ -61,10 +62,21 @@ class GacetasFragment : Fragment() {
                     val date = Calendar.getInstance()
                     date.set(year, month, dayOfMonth)
                     onDateSelected(date)
+
+                    // Oculto semejante calendario
+                    calendarView.visibility = View.GONE
                     // set this date in TextView for Display
                     Toast.makeText(context, Date, Toast.LENGTH_LONG).show()
                 })
         calendarView.maxDate = System.currentTimeMillis();
+
+        // inicializo el boton
+        binding.calendarView.visibility = View.GONE
+        binding.showCalendarBtn.setOnClickListener {
+            val oldVal = binding.calendarView.visibility
+            binding.calendarView.visibility = if(View.VISIBLE == oldVal) View.GONE else View.VISIBLE
+        }
+        UIUtils.setRoundedBorders(binding.showCalendarBtn, activity!!, 23f)
 
         initRecyclerView(binding.list, listManager, gacetasViewModel.gacetasLinks)
         initSearchView(binding.search)
@@ -139,6 +151,9 @@ class GacetasFragment : Fragment() {
             override fun onQueryTextChange(newText: String?): Boolean {
                 // false if the SearchView should perform the default action of showing any suggestions if available,
                 // true if the action was handled by the listener.
+                if(newText!=null && newText.isEmpty()){
+                    gacetasViewModel.clearList()
+                }
                 return false
             }
         })
