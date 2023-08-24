@@ -6,10 +6,10 @@
     <data>
         <variable
             name="articulo"
-            type="com.example.checheritox.models.articulo.Articulo" />
+            type="com.exeapp.checheritox.models.articulo.Articulo" />
         <variable
             name="mainViewModel"
-            type="com.example.checheritox.ui.home.HomeViewModel" />
+            type="com.exeapp.checheritox.ui.home.HomeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

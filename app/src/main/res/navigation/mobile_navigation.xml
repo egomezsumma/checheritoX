@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.example.checheritox.ui.home.HomeFragment"
+        android:name="com.exeapp.checheritox.ui.home.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/nav_codigos"
-        android:name="com.example.checheritox.ui.gallery.CodigosFragment"
+        android:name="com.exeapp.checheritox.ui.gallery.CodigosFragment"
         android:label="@string/menu_gallery"
         tools:layout="@layout/fragment_gallery" />
 
     <fragment
         android:id="@+id/nav_gacetas"
-        android:name="com.example.checheritox.ui.gacetas.GacetasFragment"
+        android:name="com.exeapp.checheritox.ui.gacetas.GacetasFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_gacetas" />
 </navigation>

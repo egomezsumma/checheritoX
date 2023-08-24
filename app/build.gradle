@@ -5,7 +5,7 @@ android {
     buildToolsVersion "30.0.1"
 
     defaultConfig {
-        applicationId "com.example.checheritox"
+        applicationId "com.exeapp.checheritox"
         minSdkVersion 26
         targetSdkVersion 31
         versionCode 1
